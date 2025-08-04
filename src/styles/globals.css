@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "robert-bold";
+  src: url("/fonts/Roobert.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "bigger";
+  src: url("/fonts/BiggerDisplay.otf") format("OPENTYPE");
+}
+
+@theme {
+  --color-p: #ffffff;
+  --color-s: #010101;
+  --color-bg: #010101;
+  --color-bg-2: #fefefe;
+  --color-brd: #101010;
+  --color-brd-2: #ececec;
+  --font-robert-bold: "robert-bold", sans-serif;
+  --font-bigger: "bigger", sans-serif;
+  --breakpoint-lg: 992px;
+  --breakpoint-md: 768px;
+  --breakpoint-sm: 400px;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  width: 100dvw;
+
+  font-family: var(--font-robert-bold);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.noise::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  content: "";
+  opacity: 0.02;
+  z-index: 1000;
+  pointer-events: none;
+  background: url("../../public/noise.gif");
+}
