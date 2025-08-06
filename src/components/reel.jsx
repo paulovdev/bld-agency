@@ -23,7 +23,7 @@ const Reel = () => {
     target: container,
     offset: ["start center", "end start"],
   });
-  const padding = useTransform(scrollYProgress, [0, 1], ["20rem", "-10rem"]);
+  const padding = useTransform(scrollYProgress, [0, 1], ["20vw", "-20vw"]);
   return (
     <div className="relative h-screen bg-bg " id="reel" ref={video}>
       <motion.video

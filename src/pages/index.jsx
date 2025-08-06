@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <Loading>
-      <main className="size-full">
+      <main className="">
         <Header />
         <About />
         <WeDo />
