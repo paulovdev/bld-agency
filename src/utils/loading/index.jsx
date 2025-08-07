@@ -79,7 +79,7 @@ export default function Loading({ children }) {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-screen h-screen flex z-[1000] pointer-events-none select-none overflow-hidden">
+      <div className="fixed top-0 left-0 w-screen h-[100dvh] flex z-[1000] pointer-events-none select-none overflow-hidden">
         <div className="relative w-full grid grid-cols-6 grid-rows-1">
           {[...Array(6)].map((_, i) => (
             <div

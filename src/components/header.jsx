@@ -40,9 +40,9 @@ const Header = () => {
     offset: ["start start", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], ["-2vh", "2vh"]);
-  const y2 = useTransform(scrollYProgress, [0, 1], ["-4vh", "4vh"]);
-  const y3 = useTransform(scrollYProgress, [0, 1], ["-6vh", "6vh"]);
+  const y1 = useTransform(scrollYProgress, [0, 1], ["-2rem", "2rem"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["-4rem", "4rem"]);
+  const y3 = useTransform(scrollYProgress, [0, 1], ["-6rem", "6rem"]);
 
   return (
     <>

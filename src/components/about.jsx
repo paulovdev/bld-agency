@@ -1,8 +1,14 @@
-import { useScroll, useTransform, motion, useInView } from "framer-motion";
+import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 const About = () => {
   const container = useRef();
-  const letter = useRef();
+
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+
   const arraySlideUpAnimation = {
     initial: { y: "175%" },
     animate: (i) => ({
@@ -20,18 +26,18 @@ const About = () => {
     target: container,
     offset: ["start end", "end start"],
   });
-  const isInView = useInView(letter);
-  const y = useTransform(scrollYProgress, [0, 1], ["500px", "100px"]);
+
+  const y = useTransform(scrollYProgress, [0, 1], ["30rem", "6.25rem"]);
   return (
     <div
-      className="relative p-5 py-30 h-fit flex flex-col items-center justify-start text-center max-lg:px-3"
+      className="relative p-5 my-30 h-fit flex flex-col items-center justify-start text-center max-lg:px-3"
       id="about"
       ref={container}
     >
       <span className="mb-12 text-[.85rem] text-p uppercase">About BLD</span>
       <div
-        className="flex flex-col items-center justify-center max-lg:justify-start max-lg:gap-0"
-        ref={letter}
+        className="w-full flex flex-col items-center justify-center max-lg:justify-start max-lg:gap-0"
+        ref={ref}
       >
         <div className="relative flex items-start overflow-hidden">
           {[
@@ -56,7 +62,7 @@ const About = () => {
               custom={i}
               variants={arraySlideUpAnimation}
               initial="initial"
-              animate={isInView ? "animate" : "initial"}
+              animate={inView ? "animate" : "initial"}
               className="text-[10vw] text-p font-bigger leading-[1] tracking-[3px] uppercase"
             >
               {phrase}
@@ -71,7 +77,7 @@ const About = () => {
                 custom={i}
                 variants={arraySlideUpAnimation}
                 initial="initial"
-                animate={isInView ? "animate" : "initial"}
+                animate={inView ? "animate" : "initial"}
                 className="text-[10vw] text-p font-bigger leading-[1] tracking-[3px] uppercase"
               >
                 {phrase}

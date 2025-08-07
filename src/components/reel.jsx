@@ -1,12 +1,10 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { useRef } from "react";
 
 const Reel = () => {
   const video = useRef();
-  const letter = useRef();
   const container = useRef();
-
-  const isInView = useInView(video);
   const arraySlideUpAnimation = {
     initial: { y: "175%" },
     animate: (i) => ({
@@ -19,39 +17,37 @@ const Reel = () => {
     }),
     exit: { y: "175%" },
   };
+
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start center", "end start"],
   });
-  const padding = useTransform(scrollYProgress, [0, 1], ["20vw", "-20vw"]);
+
+  const padding = useTransform(scrollYProgress, [0, 1], ["15rem", "-15rem"]);
+
   return (
-    <div className="relative h-screen bg-bg " id="reel" ref={video}>
+    <div className="relative h-screen bg-bg" id="reel" ref={container}>
       <motion.video
-        ref={container}
+        ref={video}
         src="/reel.mp4"
         muted
         autoPlay
         playsInline
         loop
         className="size-full object-cover"
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: isInView ? 1 : 0,
-          y: isInView ? 0 : 500,
-          transition: {
-            duration: 1,
-            ease: [0.33, 1, 0.68, 1],
-          },
-        }}
-        exit={{ opacity: 0 }}
         style={{ padding }}
       />
 
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div
-          className="flex flex-col items-center justify-center max-lg:justify-start max-lg:gap-0"
-          ref={letter}
-        >
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        ref={ref}
+      >
+        <div className="flex flex-col items-center justify-center max-lg:justify-start max-lg:gap-0">
           <div className="relative flex items-start overflow-hidden">
             {[
               "W",
@@ -75,7 +71,7 @@ const Reel = () => {
                 custom={i}
                 variants={arraySlideUpAnimation}
                 initial="initial"
-                animate={isInView ? "animate" : "initial"}
+                animate={inView ? "animate" : "initial"}
                 className="text-[10vw] text-p font-bigger leading-[1] tracking-[3px] uppercase"
               >
                 {phrase}
@@ -105,7 +101,7 @@ const Reel = () => {
                 custom={i}
                 variants={arraySlideUpAnimation}
                 initial="initial"
-                animate={isInView ? "animate" : "initial"}
+                animate={inView ? "animate" : "initial"}
                 className="text-[10vw] text-p font-bigger leading-[1] tracking-[3px] uppercase"
               >
                 {phrase}
